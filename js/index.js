@@ -18,7 +18,15 @@ const board = (function () {
   function reset() {
     domBoard.forEach(function (span) {
       span.textContent = '';
+      span.classList.remove('board__item--clicked');
       span.addEventListener('click', click);
+    });
+  }
+
+  function removeListeners() {
+    domBoard.forEach(function (span) {
+      span.classList.add('board__item--clicked');
+      span.removeEventListener('click', click);
     });
   }
 
@@ -34,12 +42,14 @@ const board = (function () {
     e.target.textContent = currentPlayer.mark;
     e.target.classList.add('board__item--clicked');
     e.target.removeEventListener('click', click);
-    if (isGameEnded()) {
+    if (isPlayerVictory()) {
       showWinner();
+      removeListeners();
       return;
     }
     if (isATie()) {
       showTie();
+      removeListeners();
       return;
     }
     switchCurrentPlayer();
@@ -52,9 +62,6 @@ const board = (function () {
     console.log('Tie game');
   }
 
-  function isGameEnded() {
-    return isPlayerVictory(player1) || isPlayerVictory(player2);
-  }
   function isATie() {
     let isArrayFull = true;
     for (let i = 0; i < domBoard.length - 1; i++) {
@@ -110,7 +117,7 @@ const board = (function () {
     return false;
   }
 
-  return { reset, isGameEnded, showWinner, setPlayer1Name, setPlayer2Name };
+  return { reset, showWinner, setPlayer1Name, setPlayer2Name };
 })();
 
 const game = (function () {
