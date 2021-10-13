@@ -8,6 +8,13 @@ const board = (function () {
 
   let currentPlayer = player1;
 
+  function setPlayer1Name(name) {
+    player1.name = name;
+  }
+  function setPlayer2Name(name) {
+    player2.name = name;
+  }
+
   function reset() {
     domBoard.forEach(function (span) {
       span.textContent = '';
@@ -103,12 +110,18 @@ const board = (function () {
     return false;
   }
 
-  return { reset, isGameEnded, showWinner };
+  return { reset, isGameEnded, showWinner, setPlayer1Name, setPlayer2Name };
 })();
 
 const game = (function () {
   const start = () => {
     board.reset();
+    document.getElementById('player1').addEventListener('input', function (e) {
+      board.setPlayer1Name(e.target.value);
+    });
+    document.getElementById('player2').addEventListener('input', function (e) {
+      board.setPlayer2Name(e.target.value);
+    });
   };
   return { start };
 })();
