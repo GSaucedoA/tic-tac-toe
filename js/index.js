@@ -8,10 +8,13 @@ const board = (function () {
 
   let currentPlayer = player1;
 
+  const winnerParragraph = document.getElementById('winner');
+
   const resetButton = document.getElementById('reset');
   resetButton.addEventListener('click', function () {
     reset();
     this.classList.add('display--none');
+    winnerParragraph.classList.add('display--none');
   });
 
   function setPlayer1Name(name) {
@@ -64,15 +67,20 @@ const board = (function () {
   }
 
   function showWinner() {
-    console.log('Winner ' + currentPlayer.name);
+    winnerParragraph.classList.remove('display--none');
+    winnerParragraph.textContent =
+      'Congratulations for winning ' + currentPlayer.name;
   }
   function showTie() {
-    console.log('Tie game');
+    winnerParragraph.classList.remove('display--none');
+    winnerParragraph.textContent =
+      "There is no winner this time, it's Tie game";
   }
 
   function isATie() {
     let isArrayFull = true;
-    for (let i = 0; i < domBoard.length - 1; i++) {
+    console.log(domBoard.length);
+    for (let i = 0; i < domBoard.length; i++) {
       if (domBoard[i].textContent == '') {
         isArrayFull = false;
         break;
@@ -99,7 +107,7 @@ const board = (function () {
         domBoard[8].textContent,
       ],
     ];
-    for (let i = 0; i < arr.length - 1; i++) {
+    for (let i = 0; i < arr.length; i++) {
       let j = 0;
       if (
         arr[i][j] == arr[i][j + 1] &&
