@@ -6,3 +6,4 @@ It is not finished yet but a preview is in the next link: https://gsaucedoa.gith
 
 - [ ] Improve front end style
 - [ ] Add AI
+- [ ] Improve javascript
