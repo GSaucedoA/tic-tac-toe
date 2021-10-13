@@ -4,5 +4,5 @@ It is not finished yet but a preview is in the next link: https://gsaucedoa.gith
 
 ## TODO
 
-- [ ] Improve font end style
+- [ ] Improve front end style
 - [ ] Add AI
