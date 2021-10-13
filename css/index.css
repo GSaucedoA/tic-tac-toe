@@ -24,7 +24,12 @@
 .board__item:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
-
+.display--none {
+  display: none;
+}
+.display--inline {
+  display: inline;
+}
 [data-pos='0'],
 [data-pos='1'],
 [data-pos='2'],
