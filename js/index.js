@@ -31,30 +31,76 @@ const board = (function () {
       showWinner();
       return;
     }
+    if (isATie()) {
+      showTie();
+      return;
+    }
     switchCurrentPlayer();
   }
 
   function showWinner() {
     console.log('Winner ' + currentPlayer.name);
   }
+  function showTie() {
+    console.log('Tie game');
+  }
 
   function isGameEnded() {
     return isPlayerVictory(player1) || isPlayerVictory(player2);
   }
+  function isATie() {
+    let isArrayFull = true;
+    for (let i = 0; i < domBoard.length - 1; i++) {
+      if (domBoard[i].textContent == '') {
+        isArrayFull = false;
+        break;
+      }
+    }
+    return isArrayFull;
+  }
 
-  function isPlayerVictory(player) {
-    const pos0 = domBoard[0].textContent;
-    const pos1 = domBoard[1].textContent;
-    const pos2 = domBoard[2].textContent;
-    const pos3 = domBoard[3].textContent;
-    const pos4 = domBoard[4].textContent;
-    const pos5 = domBoard[5].textContent;
-    const pos6 = domBoard[6].textContent;
-    const pos7 = domBoard[7].textContent;
-    const pos8 = domBoard[8].textContent;
-    if (player.mark == pos0 && player.mark == pos1 && player.mark == pos2) {
+  function isPlayerVictory() {
+    const arr = [
+      [
+        domBoard[0].textContent,
+        domBoard[1].textContent,
+        domBoard[2].textContent,
+      ],
+      [
+        domBoard[3].textContent,
+        domBoard[4].textContent,
+        domBoard[5].textContent,
+      ],
+      [
+        domBoard[6].textContent,
+        domBoard[7].textContent,
+        domBoard[8].textContent,
+      ],
+    ];
+    for (let i = 0; i < arr.length - 1; i++) {
+      let j = 0;
+      if (
+        arr[i][j] == arr[i][j + 1] &&
+        arr[i][j] == arr[i][j + 2] &&
+        arr[i][j] != ''
+      ) {
+        return true;
+      }
+      if (
+        arr[j][i] == arr[j + 1][i] &&
+        arr[j][i] == arr[j + 2][i] &&
+        arr[j][i] != ''
+      ) {
+        return true;
+      }
+    }
+    if (arr[0][0] == arr[1][1] && arr[0][0] == arr[2][2] && arr[0][0] != '') {
       return true;
     }
+    if (arr[0][2] == arr[1][1] && arr[0][2] == arr[2][0] && arr[0][2] != '') {
+      return true;
+    }
+    return false;
   }
 
   return { reset, isGameEnded, showWinner };
