@@ -8,6 +8,12 @@ const board = (function () {
 
   let currentPlayer = player1;
 
+  const resetButton = document.getElementById('reset');
+  resetButton.addEventListener('click', function () {
+    reset();
+    this.classList.add('display--none');
+  });
+
   function setPlayer1Name(name) {
     player1.name = name;
   }
@@ -45,11 +51,13 @@ const board = (function () {
     if (isPlayerVictory()) {
       showWinner();
       removeListeners();
+      resetButton.classList.remove('display--none');
       return;
     }
     if (isATie()) {
       showTie();
       removeListeners();
+      resetButton.classList.remove('display--none');
       return;
     }
     switchCurrentPlayer();
